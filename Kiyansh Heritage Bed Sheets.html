@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiyansh Heritage Bed Sheets | Premium Home Furnishings</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts Inter & Playfair for Heritage Look -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heritage: ['"Cinzel"', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fbf8f3',
+              100: '#f5eee3',
+              200: '#ebd9c3',
+              600: '#946638',
+              700: '#7a512b',
+              800: '#644224',
+              900: '#4a301a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c7b198;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #946638;
+    }
+  </style>
+</head>
+
+<body class="bg-stone-50 text-stone-800 font-sans min-h-screen flex flex-col antialiased selection:bg-amber-200 selection:text-stone-900">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-md pointer-events-none"></div>
+
+  <!-- 10,000 Photo Processing & Progress Overlay Modal -->
+  <div id="bulkProgressModal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 border border-stone-200 text-center">
+      <div class="w-14 h-14 rounded-2xl bg-black text-amber-400 flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg border border-stone-800">
+        <i class="fa-solid fa-cloud-arrow-up animate-bounce"></i>
+      </div>
+      <h3 class="text-base font-bold text-stone-900 font-heritage mb-1">Importing Photo Vault</h3>
+      <p class="text-xs text-stone-500 mb-4" id="bulkProgressStatus">Optimizing and storing photographs in high-capacity IndexedDB...</p>
+      
+      <!-- Progress Bar -->
+      <div class="w-full bg-stone-100 rounded-full h-3.5 mb-2 overflow-hidden border border-stone-200 p-0.5">
+        <div id="bulkProgressBar" class="bg-gradient-to-r from-rose-700 via-amber-600 to-emerald-600 h-full rounded-full transition-all duration-150" style="width: 0%"></div>
+      </div>
+      
+      <div class="flex justify-between items-center text-xs font-mono font-semibold text-stone-600 mb-4">
+        <span id="bulkProgressCount">0 / 0 Loaded</span>
+        <span id="bulkProgressPercent" class="text-rose-800">0%</span>
+      </div>
+
+      <div class="text-[11px] text-stone-400 bg-stone-50 p-2.5 rounded-xl border border-stone-200">
+        <i class="fa-solid fa-shield-check text-emerald-600 mr-1"></i> Images auto-compressed to ~35KB WebP/JPEG for instant high-speed rendering.
+      </div>
+    </div>
+  </div>
+
+  <!-- Announcement Bar -->
+  <div class="bg-black text-stone-200 text-xs px-4 py-2 flex flex-wrap justify-between items-center tracking-wide border-b border-stone-800">
+    <div class="flex items-center space-x-2">
+      <span class="bg-rose-700 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Heritage Mill Direct</span>
+      <span>Kiyansh Heritage Bed Sheets • Pure Handcrafted Luxury Textiles • Free Delivery Across India</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span id="ownerStatusBadge" class="hidden items-center text-emerald-400 font-semibold text-xs">
+        <i class="fa-solid fa-shield-halved mr-1"></i> Owner Admin (ID: 3694689)
+      </span>
+      <button id="ownerBtn" onclick="toggleOwnerModal()" class="hover:text-amber-400 transition-colors flex items-center gap-1">
+        <i class="fa-solid fa-lock text-[11px]"></i>
+        <span id="ownerBtnLabel">Owner Login</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="bg-white/95 backdrop-blur sticky top-0 z-40 border-b border-stone-200 shadow-sm transition-all duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+        
+        <!-- Brand Logo (Direct Tap/Click to Browse without Camera Icon) -->
+        <div class="flex items-center gap-3 group">
+          <div 
+            onclick="handleLogoClick(event)" 
+            title="Click to select & change logo from your device"
+            class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden flex items-center justify-center shadow-md border border-stone-900 bg-black flex-shrink-0 hover:scale-105 hover:ring-2 hover:ring-rose-800/60 transition-all duration-200 cursor-pointer"
+          >
+            <img 
+              id="headerLogoImg"
+              src="1000069970.png" 
+              alt="Kiyansh Heritage Bed Sheets Logo" 
+              class="khb-logo-img w-full h-full object-contain"
+            >
+          </div>
+          <div class="cursor-pointer" onclick="filterByCategory('All')">
+            <span class="text-lg sm:text-2xl font-extrabold tracking-tight text-stone-900 block leading-tight font-heritage group-hover:text-rose-800 transition">
+              KIYANSH HERITAGE
+            </span>
+            <span class="text-[10px] sm:text-[11px] text-stone-500 uppercase tracking-widest font-semibold block">
+              Bed Sheets & Fine Furnishings
+            </span>
+          </div>
+        </div>
+
+        <!-- Hidden Native File Input for Direct Logo Browsing -->
+        <input 
+          type="file" 
+          id="logoDirectPicker" 
+          accept="image/*" 
+          class="hidden" 
+          onchange="handleDirectLogoUpload(event)"
+        >
+
+        <!-- Search Bar Desktop -->
+        <div class="flex-1 max-w-lg hidden md:block">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"></i>
+            <input 
+              type="text" 
+              id="desktopSearchInput" 
+              placeholder="Search bedsheets, curtains, comforters, dohars..." 
+              oninput="handleSearch(this.value)"
+              class="w-full bg-stone-100 border border-stone-200 rounded-full pl-11 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-rose-800 focus:bg-white transition shadow-inner"
+            >
+            <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 text-xs">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center space-x-3">
+          <button onclick="scrollToSection('contactSection')" class="hidden lg:flex items-center gap-1.5 px-3 py-2 text-stone-700 hover:text-rose-800 text-sm font-medium transition">
+            <i class="fa-regular fa-envelope"></i> Contact Us
+          </button>
+          
+          <button id="adminAddNewBtn" onclick="openAddProductModal()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow items-center gap-1.5 transition">
+            <i class="fa-solid fa-circle-plus"></i> Add Product
+          </button>
+
+          <!-- Quick Bulk Photo Import for Owner -->
+          <button id="adminBulkUploadBtn" onclick="triggerBulkPhotoInput()" class="hidden bg-stone-900 hover:bg-black text-amber-300 text-xs font-semibold px-3 py-2 rounded-lg shadow items-center gap-1.5 transition border border-amber-400/30" title="Bulk Load Photos (High Capacity)">
+            <i class="fa-solid fa-layer-group"></i> <span>Bulk Upload Photos</span>
+          </button>
+
+          <!-- Hidden Native Bulk Photo Picker -->
+          <input 
+            type="file" 
+            id="bulkPhotoInput" 
+            accept="image/*" 
+            multiple 
+            class="hidden" 
+            onchange="handleBulkPhotoUpload(event)"
+          >
+
+          <!-- Shopping Cart Trigger -->
+          <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 transition">
+            <i class="fa-solid fa-bag-shopping text-lg"></i>
+            <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-rose-700 text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center ring-2 ring-white">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Search Field -->
+      <div class="pb-3 md:hidden">
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
+          <input 
+            type="text" 
+            id="mobileSearchInput" 
+            placeholder="Search bedsheets, dohars, curtains..." 
+            oninput="handleSearch(this.value)"
+            class="w-full bg-stone-100 border border-stone-200 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-800 focus:bg-white"
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Bar -->
+    <div class="border-t border-stone-200/70 bg-stone-50/90 overflow-x-auto scrollbar-none py-2.5 px-4 sm:px-6">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 text-sm font-medium whitespace-nowrap" id="categoryNavContainer">
+        <!-- Generated by JavaScript -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section class="bg-gradient-to-r from-black via-stone-900 to-rose-950 text-white py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+      <div class="max-w-xl text-center md:text-left">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/20 border border-rose-400/30 text-rose-300 text-xs font-semibold mb-3 tracking-wide">
+          <i class="fa-solid fa-gem"></i> Authentic Weaves by Kiyansh Heritage Bed Sheets
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-3 font-heritage">
+          Kiyansh Heritage Bed Sheets
+        </h1>
+        <p class="text-stone-300 text-sm sm:text-base leading-relaxed mb-5">
+          Experience royal comfort with our Glace Cotton Bedsheets, Jaipuri Dohars, Luxury Comforters, Heavy Blankets, and Designer Curtains directly from master textile artisans in Pilkhuwa.
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+          <button onclick="filterByCategory('Offers')" class="bg-rose-700 hover:bg-rose-600 text-white font-semibold px-5 py-2.5 rounded-full text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-tags"></i> Special Offers
+          </button>
+          <button onclick="filterByCategory('Featured Products')" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium px-5 py-2.5 rounded-full text-sm backdrop-blur transition flex items-center gap-2">
+            <i class="fa-solid fa-star"></i> Featured Products
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3.5 w-full md:w-auto">
+        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl backdrop-blur text-center">
+          <div class="text-rose-400 text-2xl font-bold">100%</div>
+          <div class="text-stone-300 text-xs uppercase tracking-wider mt-1">Pure Combed Cotton</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl backdrop-blur text-center">
+          <div class="text-rose-400 text-2xl font-bold">15+</div>
+          <div class="text-stone-300 text-xs uppercase tracking-wider mt-1">Heritage Categories</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl backdrop-blur text-center">
+          <div class="text-rose-400 text-2xl font-bold" id="heroPhotoCount">10,000+</div>
+          <div class="text-stone-300 text-xs uppercase tracking-wider mt-1">Photo Capacity (IndexedDB)</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl backdrop-blur text-center">
+          <div class="text-rose-400 text-2xl font-bold">3694689</div>
+          <div class="text-stone-300 text-xs uppercase tracking-wider mt-1">Owner Admin ID</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Store Area -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Filter Bar & Sort -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-stone-200 pb-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <h2 id="currentCategoryTitle" class="text-2xl font-bold text-stone-900">All Collections</h2>
+          <span id="productCountBadge" class="bg-stone-200 text-stone-700 text-xs px-2.5 py-0.5 rounded-full font-medium">0 items</span>
+        </div>
+        <p id="categoryDescription" class="text-stone-500 text-xs sm:text-sm mt-1">Browse our luxury bedsheets, cushions, dohars, and home living collections.</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <label for="sortBySelect" class="text-xs text-stone-500 font-medium">Sort by:</label>
+        <select id="sortBySelect" onchange="handleSortChange(this.value)" class="bg-white border border-stone-300 text-stone-800 text-xs rounded-lg px-3 py-2 focus:ring-1 focus:ring-rose-800 focus:outline-none">
+          <option value="featured">Featured First</option>
+          <option value="priceLow">Price: Low to High</option>
+          <option value="priceHigh">Price: High to Low</option>
+          <option value="discount">Highest Discount</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Active Filter Tags -->
+    <div id="filterChipsContainer" class="flex flex-wrap items-center gap-2 mb-6 hidden">
+      <span class="text-xs text-stone-500">Filter:</span>
+      <span class="bg-rose-100 text-rose-900 text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1.5">
+        <span id="filterTagName">Bedsheets</span>
+        <button onclick="filterByCategory('All')" class="hover:text-red-600"><i class="fa-solid fa-xmark"></i></button>
+      </span>
+      <button onclick="filterByCategory('All')" class="text-xs text-rose-800 hover:underline">Clear</button>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- High-Volume Pagination / Load More Control -->
+    <div id="loadMoreSection" class="mt-10 flex flex-col items-center justify-center gap-3 hidden">
+      <div class="text-xs text-stone-500 font-medium">
+        Showing <span id="displayedCount" class="font-bold text-stone-800">0</span> of <span id="totalMatchingCount" class="font-bold text-stone-800">0</span> items
+      </div>
+      <button 
+        id="loadMoreBtn" 
+        onclick="loadNextProductBatch()" 
+        class="bg-black hover:bg-stone-800 text-white font-semibold px-8 py-3 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-2"
+      >
+        <i class="fa-solid fa-angles-down"></i>
+        <span>Load More Products</span>
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div id="noProductsView" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-stone-300 p-8 my-6">
+      <div class="w-16 h-16 bg-stone-100 text-stone-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <h3 class="text-lg font-bold text-stone-800">No items match your criteria</h3>
+      <p class="text-stone-500 text-sm mt-1 max-w-sm mx-auto">Try selecting another category or clearing your search keywords.</p>
+      <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-stone-900 text-white text-xs font-semibold rounded-lg hover:bg-stone-800 transition">
+        Reset Filters
+      </button>
+    </div>
+  </main>
+
+  <!-- ADD TO CART / ORDER MESSAGE POPUP MODAL -->
+  <div id="addToCartModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 relative border border-stone-200">
+      <button onclick="closeAddToCartModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4 border-b border-stone-200 pb-3">
+        <div class="w-11 h-11 rounded-xl bg-black border border-stone-800 overflow-hidden flex items-center justify-center p-1 shadow">
+          <img src="1000069970.png" alt="KHB" class="khb-logo-img w-full h-full object-contain">
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-stone-900">Added to Cart!</h3>
+          <p class="text-xs text-stone-500">Your custom order message is prepared below</p>
+        </div>
+      </div>
+
+      <!-- Highlighted Message Box -->
+      <div class="mb-4">
+        <label class="block text-xs font-bold uppercase tracking-wider text-rose-800 mb-1.5">Order Message Preview</label>
+        <div class="p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-stone-900 font-medium text-xs sm:text-sm leading-relaxed shadow-inner">
+          <span id="popupOrderMessageText"></span>
+        </div>
+      </div>
+
+      <!-- Item Snapshot -->
+      <div class="flex items-center gap-3 p-3 bg-stone-50 rounded-xl border border-stone-200 mb-5 text-xs">
+        <img id="popupProductImg" src="" alt="Product" class="w-14 h-14 object-cover rounded-lg bg-stone-200 flex-shrink-0">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <span id="popupProductCode" class="text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-rose-100 text-rose-900 border border-rose-200">#KHB-101</span>
+            <span id="popupProductCategory" class="text-[10px] font-bold text-stone-500 uppercase">Bedsheets</span>
+          </div>
+          <h4 id="popupProductTitle" class="font-bold text-stone-900 truncate mt-0.5"></h4>
+          <div class="text-xs font-extrabold text-stone-900 mt-0.5" id="popupProductPrice"></div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center gap-2.5">
+        <button 
+          id="popupWhatsAppBtn"
+          onclick="proceedFromPopupToWhatsApp()" 
+          class="w-full sm:flex-1 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-2.5 px-4 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2"
+        >
+          <i class="fa-brands fa-whatsapp text-base"></i>
+          <span>Order via WhatsApp Now</span>
+        </button>
+        <button 
+          onclick="copyPopupMessage()" 
+          class="w-full sm:w-auto bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold py-2.5 px-4 rounded-xl text-xs transition flex items-center justify-center gap-1.5"
+          title="Copy exact message"
+        >
+          <i class="fa-regular fa-copy"></i>
+          <span>Copy Message</span>
+        </button>
+        <button 
+          onclick="closeAddToCartModal()" 
+          class="w-full sm:w-auto bg-stone-200 hover:bg-stone-300 text-stone-800 font-medium py-2.5 px-4 rounded-xl text-xs transition"
+        >
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Us Section -->
+  <section id="contactSection" class="bg-white border-t border-stone-200 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-xl font-bold text-stone-900 mb-2 font-heritage">Contact Kiyansh Heritage Bed Sheets</h3>
+        <p class="text-stone-600 text-sm mb-4 leading-relaxed">
+          Need custom sizes for sofa covers, fitted bedsheet depth checks, bulk wedding orders, or curtain measurements? Contact our home specialists directly.
+        </p>
+        <div class="space-y-3 text-sm text-stone-700">
+          
+          <!-- Helpline / WhatsApp -->
+          <a href="https://api.whatsapp.com/send?phone=917983299382&text=Hello%20Kiyansh%20Heritage!%20I%20have%20an%20inquiry%20regarding%20bedsheets%20and%20furnishings." target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-stone-50 transition group border border-transparent hover:border-stone-200">
+            <div class="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition">
+              <i class="fa-brands fa-whatsapp text-lg"></i>
+            </div>
+            <div>
+              <div class="text-xs text-stone-500 font-medium">Helpline / WhatsApp</div>
+              <div class="font-bold text-stone-900 group-hover:text-emerald-700 transition">+91 7983299382</div>
+            </div>
+          </a>
+
+          <!-- Email Assistance -->
+          <a href="mailto:kiyanshdhargupta@gmail.com" class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-stone-50 transition group border border-transparent hover:border-stone-200">
+            <div class="w-9 h-9 rounded-lg bg-stone-100 text-stone-800 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="min-w-0">
+              <div class="text-xs text-stone-500 font-medium">Email Assistance</div>
+              <div class="font-bold text-stone-900 group-hover:text-rose-800 transition truncate">kiyanshdhargupta@gmail.com</div>
+            </div>
+          </a>
+
+          <!-- Address -->
+          <div class="flex items-start gap-3 p-2.5 rounded-xl bg-stone-50/80 border border-stone-200">
+            <div class="w-9 h-9 rounded-lg bg-rose-100 text-rose-800 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div>
+              <div class="text-xs text-stone-500 font-medium">Store & Manufacturing Unit</div>
+              <div class="font-semibold text-stone-900 leading-snug text-xs sm:text-sm">
+                Kiyansh Heritage bedsheet, Dinesh Nagar, Pilkhuwa, Hapur, Uttar Pradesh, India
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEND A DIRECT MESSAGE Form -->
+      <div class="lg:col-span-2 bg-stone-50 p-6 rounded-2xl border border-stone-200">
+        <h4 class="text-sm font-bold uppercase tracking-wider text-stone-800 mb-4">SEND A DIRECT MESSAGE</h4>
+        <form onsubmit="handleContactSubmit(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-stone-600 mb-1">Your Name</label>
+            <input type="text" id="contactName" required placeholder="Full Name" class="w-full bg-white border border-stone-300 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-rose-800 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-stone-600 mb-1">Phone Number</label>
+            <input type="tel" id="contactPhone" required placeholder="+91 79XXXXXXXX" class="w-full bg-white border border-stone-300 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-rose-800 outline-none">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-stone-600 mb-1">Your Inquiry / Requirement</label>
+            <textarea id="contactMessage" rows="3" required placeholder="Tell us what bedsheet sizes, colors, or custom furnishings you are looking for..." class="w-full bg-white border border-stone-300 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-rose-800 outline-none"></textarea>
+          </div>
+          <div class="sm:col-span-2 flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
+            <span class="text-[11px] text-stone-500">Quick response guaranteed on WhatsApp or phone</span>
+            <button type="submit" class="w-full sm:w-auto bg-black hover:bg-stone-800 text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-lg shadow transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-paper-plane text-xs"></i>
+              <span>SEND A DIRECT MESSAGE</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black text-stone-400 text-xs py-8 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0 bg-black border border-stone-700 shadow-sm p-0.5">
+          <img 
+            src="1000069970.png" 
+            alt="KHB Logo" 
+            class="khb-logo-img w-full h-full object-contain"
+          >
+        </div>
+        <div>
+          <p class="font-bold text-stone-200">© 2026 Kiyansh Heritage Bed Sheets. All Rights Reserved.</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Dinesh Nagar, Pilkhuwa, Hapur, Uttar Pradesh, India • +91 7983299382 • kiyanshdhargupta@gmail.com</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3 text-stone-400">
+        <button onclick="toggleOwnerModal()" class="hover:text-white transition">Owner Portal</button>
+        <span>•</span>
+        <button onclick="scrollToSection('contactSection')" class="hover:text-white transition">Contact</button>
+        <span>•</span>
+        <span class="text-stone-500 font-mono">Owner ID: 3694689</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Owner Authentication Modal -->
+  <div id="ownerModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 relative border border-stone-200">
+      <button onclick="toggleOwnerModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 bg-black rounded-2xl border border-stone-800 flex items-center justify-center mx-auto mb-3 overflow-hidden shadow-md p-1">
+          <img src="1000069970.png" alt="KHB" class="khb-logo-img w-full h-full object-contain">
+        </div>
+        <h3 class="text-lg font-bold text-stone-900 font-heritage">Kiyansh Heritage Bed Sheets</h3>
+        <p class="text-xs text-stone-500 mt-1">Enter your registered Owner ID to unlock live price edits, code management, and photo uploads.</p>
+      </div>
+
+      <div id="ownerLoginContent">
+        <form onsubmit="handleOwnerAuth(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Owner Security ID</label>
+            <div class="relative">
+              <input 
+                type="password" 
+                id="ownerInputId" 
+                required 
+                placeholder="Enter 7-digit Owner ID" 
+                class="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-rose-800 font-mono"
+              >
+              <button type="button" onclick="togglePasswordVisibility('ownerInputId')" class="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 text-xs">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+            <p class="text-[11px] text-stone-400 mt-1">Registered ID: <span class="font-mono font-semibold text-stone-600">3694689</span></p>
+          </div>
+          
+          <button type="submit" class="w-full bg-black hover:bg-stone-800 text-white font-semibold py-2.5 rounded-xl text-sm transition shadow-md flex items-center justify-center gap-2">
+            <i class="fa-solid fa-unlock-keyhole"></i> Authorize & Enter Admin Mode
+          </button>
+        </form>
+      </div>
+
+      <!-- Logged In Controls -->
+      <div id="ownerLoggedInContent" class="hidden text-center space-y-4">
+        <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs font-semibold">
+          <i class="fa-solid fa-circle-check mr-1"></i> Logged in as Authorized Store Owner
+        </div>
+
+        <!-- Store Logo Browser Card in Owner Control Panel -->
+        <div class="p-3.5 bg-stone-50 border border-stone-200 rounded-xl text-left">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-bold text-stone-800 uppercase tracking-wider">Store Brand Logo</span>
+            <span class="text-[10px] text-stone-400">Direct Device Browser</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-lg bg-black border border-stone-800 overflow-hidden flex items-center justify-center p-0.5 flex-shrink-0">
+              <img src="1000069970.png" alt="Current Logo" class="khb-logo-img w-full h-full object-contain">
+            </div>
+            <div class="flex-1 flex flex-col gap-1.5">
+              <button 
+                type="button" 
+                onclick="triggerLogoBrowser()" 
+                class="w-full bg-black hover:bg-stone-800 text-white font-semibold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-1.5 shadow-sm"
+              >
+                <i class="fa-solid fa-images text-[11px] text-amber-400"></i>
+                <span>Browse & Change Logo</span>
+              </button>
+              <button 
+                type="button" 
+                onclick="resetLogoToDefault()" 
+                class="w-full bg-stone-200 hover:bg-stone-300 text-stone-700 font-medium py-1 px-2 rounded-lg text-[10px] transition"
+              >
+                Reset Logo to Default Image
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- High Capacity Photo Engine & Bulk Loader Card -->
+        <div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-left">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[11px] font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-database text-amber-700"></i> 10,000 Photo Vault Engine
+            </span>
+            <span class="text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded font-mono font-bold" id="dbItemsBadge">IndexedDB</span>
+          </div>
+          <p class="text-[11px] text-stone-600 leading-snug mb-2">
+            Engineered for high-volume catalogs. Store 10,000+ bedding photos directly on your device with zero cloud fees.
+          </p>
+
+          <!-- Real-Time Storage Space Indicator -->
+          <div class="bg-white/80 p-2 rounded-lg border border-amber-200/80 mb-3 text-[10px] text-stone-600 flex justify-between items-center">
+            <span>Disk Storage Used:</span>
+            <span id="storageUsageStats" class="font-mono font-bold text-stone-900">Calculating...</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button 
+              type="button" 
+              onclick="triggerBulkPhotoInput(); toggleOwnerModal();" 
+              class="w-full bg-amber-800 hover:bg-amber-900 text-white font-semibold py-2 px-2.5 rounded-lg text-xs transition flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              <i class="fa-solid fa-folder-plus text-amber-200"></i>
+              <span>Batch Add Photos</span>
+            </button>
+            <button 
+              type="button" 
+              onclick="exportCatalogJSON()" 
+              class="w-full bg-white hover:bg-stone-100 text-stone-800 border border-stone-300 font-semibold py-2 px-2.5 rounded-lg text-xs transition flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              <i class="fa-solid fa-file-export text-stone-600"></i>
+              <span>Backup Catalog</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <button onclick="openAddProductModal(); toggleOwnerModal();" class="p-3 bg-stone-100 hover:bg-stone-200 rounded-xl font-medium text-stone-800 transition">
+            <i class="fa-solid fa-plus block mb-1 text-sm text-rose-800"></i> Add New Product
+          </button>
+          <button onclick="resetDefaultData(); toggleOwnerModal();" class="p-3 bg-stone-100 hover:bg-stone-200 rounded-xl font-medium text-stone-800 transition">
+            <i class="fa-solid fa-rotate-left block mb-1 text-sm text-amber-700"></i> Reset Defaults
+          </button>
+        </div>
+        <button onclick="logoutOwner()" class="w-full bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-semibold py-2 rounded-xl text-xs transition">
+          <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Log Out of Owner Mode
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Edit Modal (With Code & Direct Photo Browser) -->
+  <div id="editProductModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 relative border border-stone-200 max-h-[92vh] overflow-y-auto">
+      <button onclick="closeEditProductModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center gap-2 mb-4 border-b border-stone-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-rose-700 text-white flex items-center justify-center font-bold text-sm">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-stone-900" id="editModalTitle">Edit Product, Price & #code</h3>
+          <p class="text-[11px] text-stone-500">Kiyansh Heritage Owner Control • Direct device photo selection</p>
+        </div>
+      </div>
+
+      <form id="editProductForm" onsubmit="handleSaveProductEdit(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="editProductId">
+
+        <div class="grid grid-cols-3 gap-3">
+          <div class="col-span-2">
+            <label class="block font-semibold text-stone-700 mb-1">Product Title</label>
+            <input type="text" id="editTitle" required class="w-full bg-stone-50 border border-stone-300 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-rose-800 outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold text-stone-700 mb-1">Product #Code</label>
+            <input type="text" id="editCode" required placeholder="e.g. KHB-101" class="w-full bg-stone-50 border border-stone-300 rounded-lg px-3 py-2 text-sm font-mono font-bold focus:ring-1 focus:ring-rose-800 outline-none text-rose-800">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-stone-700 mb-1">Selling Price (₹)</label>
+            <input type="number" id="editPrice" required min="1" class="w-full bg-stone-50 border border-stone-300 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-rose-800 outline-none font-bold text-stone-900">
+          </div>
+          <div>
+            <label class="block font-semibold text-stone-700 mb-1">Original MRP (₹)</label>
+            <input type="number" id="editOriginalPrice" required min="1" class="w-full bg-stone-50 border border-stone-300 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-rose-800 outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-stone-700 mb-1">Primary Category</label>
+            <select id="editCategory" required class="w-full bg-stone-50 border border-stone-300 rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-rose-800 outline-none">
+              <!-- Dynamically populated categories -->
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-stone-700 mb-1">Stock Status</label>
+            <select id="editInStock" class="w-full bg-stone-50 border border-stone-300 rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-rose-800 outline-none">
+              <option value="true">In Stock</option>
+              <option value="false">Out of Stock</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-6 p-3 bg-stone-50 rounded-lg border border-stone-200">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="editIsFeatured" class="w-4 h-4 text-rose-700 rounded">
+            <span class="font-medium text-stone-700">Mark as Featured</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="editIsOffer" class="w-4 h-4 text-rose-700 rounded">
+            <span class="font-medium text-stone-700">Include in Special Offers</span>
+          </label>
+        </div>
+
+        <!-- DIRECT PHOTO BROWSER -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="block font-semibold text-stone-700">Product Photo</label>
+            <span class="text-[10px] text-rose-700 font-medium">Click box or button to browse photos directly</span>
+          </div>
+
+          <!-- Stores base64 data internally -->
+          <input type="hidden" id="editImageData">
+          
+          <!-- Native File Picker for direct photo opening -->
+          <input 
+            type="file" 
+            id="directPhotoPicker" 
+            accept="image/*" 
+            class="hidden" 
+            onchange="handleDirectPhotoSelection(event)"
+          >
+
+          <!-- Interactive Direct Photo Browser Area -->
+          <div 
+            onclick="triggerDirectPhotoBrowser()" 
+            class="group cursor-pointer border-2 border-dashed border-stone-300 hover:border-black rounded-2xl p-4 bg-stone-50 hover:bg-stone-100/70 transition flex flex-col items-center justify-center relative overflow-hidden"
+          >
+            <!-- Preview Box -->
+            <div class="w-full h-48 bg-stone-200 rounded-xl overflow-hidden relative flex items-center justify-center shadow-inner">
+              <img id="editImagePreview" src="" alt="Selected Product Photo" class="w-full h-full object-cover hidden">
+
+              <div id="photoEmptyState" class="flex flex-col items-center justify-center p-6 text-center">
+                <div class="w-14 h-14 rounded-full bg-white shadow-sm flex items-center justify-center mb-2 text-stone-400 group-hover:text-rose-700 group-hover:scale-110 transition">
+                  <i class="fa-solid fa-camera text-2xl"></i>
+                </div>
+                <span class="font-bold text-stone-700 text-xs">Direct Photo Browser</span>
+                <span class="text-[11px] text-stone-400 mt-1">Tap here to choose from your gallery or camera</span>
+              </div>
+
+              <!-- Overlay Hover / Tap prompt -->
+              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white backdrop-blur-[1px]">
+                <div class="bg-black/90 px-4 py-2 rounded-xl text-xs font-semibold shadow flex items-center gap-2">
+                  <i class="fa-solid fa-folder-open"></i>
+                  <span>Browse Device Photos</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Direct Actions Button Bar -->
+            <div class="mt-3 flex items-center gap-2 w-full">
+              <button 
+                type="button" 
+                onclick="event.stopPropagation(); triggerDirectPhotoBrowser();" 
+                class="flex-1 bg-black hover:bg-stone-800 text-white py-2.5 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 shadow transition"
+              >
+                <i class="fa-solid fa-images"></i>
+                <span>Direct Open Photos</span>
+              </button>
+
+              <button 
+                type="button" 
+                id="removePhotoBtn" 
+                onclick="event.stopPropagation(); clearSelectedPhoto();" 
+                class="hidden bg-stone-200 hover:bg-red-100 hover:text-red-700 text-stone-700 py-2.5 px-3 rounded-xl text-xs font-semibold transition"
+                title="Remove photo"
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-stone-700 mb-1">Specifications / Fabric Info</label>
+          <input type="text" id="editSpecs" placeholder="e.g., 100% Pure Combed Cotton, King Size 108x108 inch" class="w-full bg-stone-50 border border-stone-300 rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-rose-800 outline-none">
+        </div>
+
+        <div class="flex items-center justify-between pt-3 border-t border-stone-200">
+          <button type="button" id="deleteProductBtn" onclick="handleDeleteProduct()" class="text-red-600 hover:text-red-800 font-semibold px-3 py-2 rounded-lg hover:bg-red-50 transition">
+            <i class="fa-regular fa-trash-can mr-1"></i> Delete
+          </button>
+          <div class="flex gap-2">
+            <button type="button" onclick="closeEditProductModal()" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg font-medium">Cancel</button>
+            <button type="submit" class="px-5 py-2 bg-black hover:bg-stone-800 text-white font-semibold rounded-lg shadow">Save Changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shopping Bag Drawer -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="toggleCartDrawer()"></div>
+    <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+      <div class="pointer-events-auto w-screen max-w-md bg-white shadow-2xl flex flex-col">
+        
+        <div class="p-5 border-b border-stone-200 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-bag-shopping text-rose-700"></i>
+            <h3 class="text-base font-bold text-stone-900 font-heritage">Your Shopping Bag</h3>
+          </div>
+          <button onclick="toggleCartDrawer()" class="text-stone-400 hover:text-stone-700 p-1">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-5 space-y-4" id="cartItemList">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <div class="p-5 border-t border-stone-200 bg-stone-50 space-y-3">
+          <div class="flex justify-between text-xs text-stone-600">
+            <span>Subtotal</span>
+            <span id="cartSubtotal" class="font-semibold text-stone-800">₹0</span>
+          </div>
+          <div class="flex justify-between text-xs text-stone-600">
+            <span>Delivery</span>
+            <span class="text-emerald-700 font-semibold">FREE</span>
+          </div>
+          <div class="flex justify-between text-base font-bold text-stone-900 pt-2 border-t border-stone-200">
+            <span>Total Payable</span>
+            <span id="cartTotal" class="text-rose-800">₹0</span>
+          </div>
+
+          <button onclick="handleCheckout()" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 rounded-xl text-sm transition shadow-lg flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Order via WhatsApp</span>
+          </button>
+          <p class="text-[10px] text-center text-stone-400">Cash on Delivery & UPI available across India</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const OWNER_ID = "3694689";
+    const WHATSAPP_PHONE = "917983299382";
+    const DEFAULT_LOGO = "1000069970.png";
+    const DB_NAME = "KiyanshHeritage_DB";
+    const DB_VERSION = 1;
+    const DB_STORE_PRODUCTS = "products_store";
+    const DB_STORE_SETTINGS = "settings_store";
+    const ITEMS_PER_PAGE = 24;
+
+    function openWhatsApp(messageText) {
+      const cleanPhone = WHATSAPP_PHONE.replace(/[^0-9]/g, "");
+      const encodedMsg = encodeURIComponent(messageText);
+      const url = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodedMsg}`;
+      
+      // Create synchronous click to prevent browser popup blockers on mobile devices
+      const link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => {
+        if (link.parentNode) {
+          document.body.removeChild(link);
+        }
+      }, 300);
+    }
+
+    const ALL_CATEGORIES = [
+      "All",
+      "Bedsheets",
+      "Pillow Covers",
+      "Cushion Covers",
+      "Curtains",
+      "Sofa Covers",
+      "Dohars",
+      "Comforters",
+      "Blankets",
+      "Fitted Bedsheets",
+      "Bed Runners",
+      "Door Mats",
+      "Table Covers",
+      "Home Decor",
+      "Offers",
+      "Featured Products"
+    ];
+
+    const INITIAL_PRODUCTS = [
+      {
+        id: "prod-1",
+        code: "KHB-101",
+        title: "Kiyansh Heritage 400TC Glace Cotton King Bedsheet",
+        category: "Bedsheets",
+        price: 1299,
+        originalPrice: 2499,
+        image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80",
+        specs: "108 x 108 inches with 2 matching pillow slips",
+        inStock: true,
+        isFeatured: true,
+        isOffer: true
+      },
+      {
+        id: "prod-2",
+        code: "KHB-102",
+        title: "Pure Mulberry Silk Quilted Pillow Covers (Set of 2)",
+        category: "Pillow Covers",
+        price: 499,
+        originalPrice: 999,
+        image: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=600&q=80",
+        specs: "18 x 28 inches • Anti-frizz & Skin gentle",
+        inStock: true,
+        isFeatured: false,
+        isOffer: true
+      },
+      {
+        id: "prod-3",
+        code: "KHB-103",
+        title: "Boho Mandala Embroidered Velvet Cushion Covers (5 Pc)",
+        category: "Cushion Covers",
+        price: 699,
+        originalPrice: 1299,
+        image: "https://images.unsplash.com/photo-1579656381226-5fc0f0100c3b?auto=format&fit=crop&w=600&q=80",
+        specs: "16 x 16 inches • Heavy concealed zip",
+        inStock: true,
+        isFeatured: true,
+        isOffer: false
+      },
+      {
+        id: "prod-4",
+        code: "KHB-104",
+        title: "Triple Weave Thermal Blackout Eyelet Curtains (9 Feet)",
+        category: "Curtains",
+        price: 1599,
+        originalPrice: 2899,
+        image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80",
+        specs: "Set of 2 Door Curtains • 8 Rustproof Eyelets",
+        inStock: true,
+        isFeatured: true,
+        isOffer: true
+      },
+      {
+        id: "prod-5",
+        code: "KHB-105",
+        title: "High Elastic Spandex Jacquard 3-Seater Sofa Cover",
+        category: "Sofa Covers",
+        price: 1199,
+        originalPrice: 2199,
+        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+        specs: "Form-fit wrinkle-resistant stretch fabric",
+        inStock: true,
+        isFeatured: false,
+        isOffer: false
+      },
+      {
+        id: "prod-6",
+        code: "KHB-106",
+        title: "Jaipuri Hand-Block Print Reversible Mulmul Dohar",
+        category: "Dohars",
+        price: 1349,
+        originalPrice: 2499,
+        image: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=600&q=80",
+        specs: "Double Bed 90 x 100 inch • Breathable summer layer",
+        inStock: true,
+        isFeatured: true,
+        isOffer: true
+      },
+      {
+        id: "prod-7",
+        code: "KHB-107",
+        title: "Ultra-Plush Microfiber Winter Reversible Comforter",
+        category: "Comforters",
+        price: 1899,
+        originalPrice: 3499,
+        image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=600&q=80",
+        specs: "300 GSM hollow siliconized filling • All-season",
+        inStock: true,
+        isFeatured: true,
+        isOffer: false
+      },
+      {
+        id: "prod-8",
+        code: "KHB-108",
+        title: "Heavy Polar Fleece Embossed Mink Blanket",
+        category: "Blankets",
+        price: 1499,
+        originalPrice: 2799,
+        image: "https://images.unsplash.com/photo-1580301762395-21ce84d00bc6?auto=format&fit=crop&w=600&q=80",
+        specs: "Double ply • Machine washable velvety finish",
+        inStock: true,
+        isFeatured: false,
+        isOffer: true
+      },
+      {
+        id: "prod-9",
+        code: "KHB-109",
+        title: "Deep Pocket All-Around Elastic Fitted Bedsheet",
+        category: "Fitted Bedsheets",
+        price: 999,
+        originalPrice: 1799,
+        image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80",
+        specs: "Fits mattresses up to 10 inch height • 78x72 inch",
+        inStock: true,
+        isFeatured: true,
+        isOffer: false
+      },
+      {
+        id: "prod-10",
+        code: "KHB-110",
+        title: "Brocade Silk Handcrafted Traditional Bed Runner Set",
+        category: "Bed Runners",
+        price: 799,
+        originalPrice: 1499,
+        image: "https://images.unsplash.com/photo-1540518614846-7ede433c4ef0?auto=format&fit=crop&w=600&q=80",
+        specs: "1 Bed Runner (94x18 in) with 2 Matching Cushions",
+        inStock: true,
+        isFeatured: false,
+        isOffer: true
+      },
+      {
+        id: "prod-11",
+        code: "KHB-111",
+        title: "Super Absorbent Anti-Skid Memory Foam Door Mat",
+        category: "Door Mats",
+        price: 349,
+        originalPrice: 699,
+        image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80",
+        specs: "Fast dry micro-loop pile with TPR rubber base",
+        inStock: true,
+        isFeatured: false,
+        isOffer: true
+      },
+      {
+        id: "prod-12",
+        code: "KHB-112",
+        title: "Waterproof Wipeable Textured 6-Seater Table Cover",
+        category: "Table Covers",
+        price: 549,
+        originalPrice: 999,
+        image: "https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=600&q=80",
+        specs: "60 x 90 inches • Scalloped stain-resistant border",
+        inStock: true,
+        isFeatured: false,
+        isOffer: false
+      },
+      {
+        id: "prod-13",
+        code: "KHB-113",
+        title: "Nordic Ceramic Ribbed Flower Vase Decor Trio",
+        category: "Home Decor",
+        price: 899,
+        originalPrice: 1699,
+        image: "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+        specs: "Handmade matte glazed ceramic centerpiece",
+        inStock: true,
+        isFeatured: true,
+        isOffer: true
+      }
+    ];
+
+    let dbInstance = null;
+    let products = [];
+    let cart = [];
+    let currentCategory = "All";
+    let searchQuery = "";
+    let sortBy = "featured";
+    let isOwnerLoggedIn = false;
+    let currentPopupMessage = "";
+    let visibleItemCount = ITEMS_PER_PAGE;
+
+    // ========================================================
+    // INDEXEDDB HIGH CAPACITY STORAGE SYSTEM
+    // ========================================================
+    function openDatabase() {
+      return new Promise((resolve, reject) => {
+        if (!window.indexedDB) {
+          console.warn("IndexedDB not supported, falling back to localStorage.");
+          resolve(null);
+          return;
+        }
+
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+        request.onupgradeneeded = function(e) {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(DB_STORE_PRODUCTS)) {
+            db.createObjectStore(DB_STORE_PRODUCTS, { keyPath: "id" });
+          }
+          if (!db.objectStoreNames.contains(DB_STORE_SETTINGS)) {
+            db.createObjectStore(DB_STORE_SETTINGS, { keyPath: "key" });
+          }
+        };
+
+        request.onsuccess = function(e) {
+          dbInstance = e.target.result;
+          resolve(dbInstance);
+        };
+
+        request.onerror = function(e) {
+          console.error("IndexedDB error:", e);
+          resolve(null);
+        };
+      });
+    }
+
+    function dbGetAllProducts() {
+      return new Promise((resolve) => {
+        if (!dbInstance) {
+          resolve(null);
+          return;
+        }
+        try {
+          const tx = dbInstance.transaction(DB_STORE_PRODUCTS, "readonly");
+          const store = tx.objectStore(DB_STORE_PRODUCTS);
+          const req = store.getAll();
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => resolve(null);
+        } catch (err) {
+          resolve(null);
+        }
+      });
+    }
+
+    function dbPutProduct(prod) {
+      return new Promise((resolve) => {
+        if (!dbInstance) {
+          resolve(false);
+          return;
+        }
+        try {
+          const tx = dbInstance.transaction(DB_STORE_PRODUCTS, "readwrite");
+          const store = tx.objectStore(DB_STORE_PRODUCTS);
+          const req = store.put(prod);
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => resolve(false);
+        } catch (err) {
+          resolve(false);
+        }
+      });
+    }
+
+    function dbDeleteProduct(id) {
+      return new Promise((resolve) => {
+        if (!dbInstance) {
+          resolve(false);
+          return;
+        }
+        try {
+          const tx = dbInstance.transaction(DB_STORE_PRODUCTS, "readwrite");
+          const store = tx.objectStore(DB_STORE_PRODUCTS);
+          const req = store.delete(id);
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => resolve(false);
+        } catch (err) {
+          resolve(false);
+        }
+      });
+    }
+
+    function dbBatchPutProducts(prodsArray) {
+      return new Promise((resolve) => {
+        if (!dbInstance) {
+          resolve(false);
+          return;
+        }
+        try {
+          const tx = dbInstance.transaction(DB_STORE_PRODUCTS, "readwrite");
+          const store = tx.objectStore(DB_STORE_PRODUCTS);
+          prodsArray.forEach(p => store.put(p));
+          tx.oncomplete = () => resolve(true);
+          tx.onerror = () => resolve(false);
+        } catch (err) {
+          resolve(false);
+        }
+      });
+    }
+
+    function dbClearAllProducts() {
+      return new Promise((resolve) => {
+        if (!dbInstance) {
+          resolve(false);
+          return;
+        }
+        try {
+          const tx = dbInstance.transaction(DB_STORE_PRODUCTS, "readwrite");
+          const store = tx.objectStore(DB_STORE_PRODUCTS);
+          const req = store.clear();
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => resolve(false);
+        } catch (err) {
+          resolve(false);
+        }
+      });
+    }
+
+    function dbSaveSetting(key, val) {
+      return new Promise((resolve) => {
+        if (!dbInstance) {
+          resolve(false);
+          return;
+        }
+        try {
+          const tx = dbInstance.transaction(DB_STORE_SETTINGS, "readwrite");
+          const store = tx.objectStore(DB_STORE_SETTINGS);
+          const req = store.put({ key, val });
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => resolve(false);
+        } catch (err) {
+          resolve(false);
+        }
+      });
+    }
+
+    function dbGetSetting(key) {
+      return new Promise((resolve) => {
+        if (!dbInstance) {
+          resolve(null);
+          return;
+        }
+        try {
+          const tx = dbInstance.transaction(DB_STORE_SETTINGS, "readonly");
+          const store = tx.objectStore(DB_STORE_SETTINGS);
+          const req = store.get(key);
+          req.onsuccess = () => resolve(req.result ? req.result.val : null);
+          req.onerror = () => resolve(null);
+        } catch (err) {
+          resolve(null);
+        }
+      });
+    }
+
+    function applyLogoToAll(logoSrc) {
+      const allLogos = document.querySelectorAll(".khb-logo-img");
+      allLogos.forEach(img => {
+        img.onerror = function() {
+          this.style.display = "none";
+          let fallback = this.parentElement.querySelector(".khb-logo-fallback");
+          if (!fallback) {
+            fallback = document.createElement("div");
+            fallback.className = "khb-logo-fallback w-full h-full flex flex-col items-center justify-center bg-black text-white font-bold text-xs tracking-widest font-heritage";
+            fallback.innerText = "KHB";
+            this.parentElement.appendChild(fallback);
+          } else {
+            fallback.style.display = "flex";
+          }
+        };
+
+        img.onload = function() {
+          this.style.display = "block";
+          const fallback = this.parentElement.querySelector(".khb-logo-fallback");
+          if (fallback) {
+            fallback.style.display = "none";
+          }
+        };
+
+        img.src = logoSrc;
+      });
+    }
+
+    function handleLogoClick(event) {
+      if (event) event.stopPropagation();
+      triggerLogoBrowser();
+    }
+
+    function triggerLogoBrowser() {
+      const picker = document.getElementById("logoDirectPicker");
+      if (picker) {
+        picker.value = "";
+        picker.click();
+      }
+    }
+
+    async function handleDirectLogoUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith("image/")) {
+        showToast("Please choose a valid photo/image file.", "error");
+        return;
+      }
+
+      showToast("Optimizing and saving logo...", "info");
+
+      const reader = new FileReader();
+      reader.onload = async function(evt) {
+        const rawData = evt.target.result;
+        const tempImg = new Image();
+        
+        tempImg.onload = async function() {
+          try {
+            const canvas = document.createElement("canvas");
+            const MAX_SIZE = 500;
+            let w = tempImg.width;
+            let h = tempImg.height;
+
+            if (w > h) {
+              if (w > MAX_SIZE) {
+                h = Math.round(h * (MAX_SIZE / w));
+                w = MAX_SIZE;
+              }
+            } else {
+              if (h > MAX_SIZE) {
+                w = Math.round(w * (MAX_SIZE / h));
+                h = MAX_SIZE;
+              }
+            }
+
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(tempImg, 0, 0, w, h);
+
+            const compressedLogo = canvas.toDataURL("image/png");
+            
+            // Save in IndexedDB (no quota ceiling) and localStorage as backup
+            await dbSaveSetting("khb_custom_logo", compressedLogo);
+            try {
+              localStorage.setItem("khb_custom_logo", compressedLogo);
+            } catch (storageErr) {}
+
+            applyLogoToAll(compressedLogo);
+            showToast("Store logo updated successfully!", "success");
+          } catch (err) {
+            await dbSaveSetting("khb_custom_logo", rawData);
+            applyLogoToAll(rawData);
+            showToast("Store logo updated!", "success");
+          }
+        };
+
+        tempImg.src = rawData;
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    async function resetLogoToDefault() {
+      await dbSaveSetting("khb_custom_logo", null);
+      localStorage.removeItem("khb_custom_logo");
+      applyLogoToAll(DEFAULT_LOGO);
+      showToast("Store logo reset to default image.", "info");
+    }
+
+    async function initApp() {
+      await openDatabase();
+
+      // Load saved logo from IndexedDB with fallback to localStorage
+      const idbLogo = await dbGetSetting("khb_custom_logo");
+      const localLogo = localStorage.getItem("khb_custom_logo");
+      if (idbLogo) {
+        applyLogoToAll(idbLogo);
+      } else if (localLogo) {
+        applyLogoToAll(localLogo);
+        await dbSaveSetting("khb_custom_logo", localLogo);
+      } else {
+        applyLogoToAll(DEFAULT_LOGO);
+      }
+
+      // Load products from IndexedDB (supporting thousands/10,000 photos)
+      let storedProducts = await dbGetAllProducts();
+
+      // Migration: If IndexedDB is empty but localStorage has products, migrate them over
+      if (!storedProducts || storedProducts.length === 0) {
+        const legacyProducts = localStorage.getItem("khb_products") || localStorage.getItem("luxeloom_products");
+        if (legacyProducts) {
+          try {
+            const parsed = JSON.parse(legacyProducts);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              storedProducts = parsed;
+              await dbBatchPutProducts(storedProducts);
+            }
+          } catch (e) {}
+        }
+      }
+
+      if (storedProducts && storedProducts.length > 0) {
+        products = storedProducts;
+        products.forEach((p, idx) => {
+          if (!p.code) p.code = `KHB-${101 + idx}`;
+        });
+      } else {
+        products = [...INITIAL_PRODUCTS];
+        await dbBatchPutProducts(products);
+      }
+
+      // Load shopping cart
+      const savedCart = localStorage.getItem("khb_cart") || localStorage.getItem("luxeloom_cart");
+      if (savedCart) {
+        try {
+          cart = JSON.parse(savedCart);
+          cart.forEach((c, idx) => {
+            if (!c.code) {
+              const matched = products.find(p => p.id === c.id);
+              c.code = matched ? matched.code : `KHB-${101 + idx}`;
+            }
+          });
+        } catch (e) {
+          cart = [];
+        }
+      }
+
+      isOwnerLoggedIn = sessionStorage.getItem("khb_owner") === "true" || sessionStorage.getItem("luxeloom_owner") === "true";
+
+      updateStorageBadges();
+      renderCategoryNav();
+      populateEditCategoriesDropdown();
+      renderProducts();
+      updateCartDisplay();
+      updateOwnerUI();
+    }
+
+    function updateStorageBadges() {
+      const badge = document.getElementById("dbItemsBadge");
+      const heroCount = document.getElementById("heroPhotoCount");
+      const count = products.length;
+
+      if (badge) {
+        badge.innerText = `${count.toLocaleString('en-IN')} Photos Stored`;
+      }
+      if (heroCount) {
+        heroCount.innerText = count >= 100 ? `${count.toLocaleString('en-IN')}+` : "10,000+";
+      }
+
+      // Check real-time browser storage quota
+      if (navigator.storage && navigator.storage.estimate) {
+        navigator.storage.estimate().then(est => {
+          const usageMB = (est.usage / (1024 * 1024)).toFixed(1);
+          const quotaGB = (est.quota / (1024 * 1024 * 1024)).toFixed(1);
+          const statsEl = document.getElementById("storageUsageStats");
+          if (statsEl) {
+            statsEl.innerText = `${usageMB} MB / ${quotaGB} GB free`;
+          }
+        }).catch(() => {});
+      }
+    }
+
+    async function saveProductToDatabase(prod) {
+      await dbPutProduct(prod);
+      updateStorageBadges();
+    }
+
+    async function removeProductFromDatabase(id) {
+      await dbDeleteProduct(id);
+      updateStorageBadges();
+    }
+
+    function saveCartToStorage() {
+      localStorage.setItem("khb_cart", JSON.stringify(cart));
+      updateCartDisplay();
+    }
+
+    // ========================================================
+    // BULK MULTI-PHOTO IMPORT SYSTEM (Up to 10,000 photos)
+    // ========================================================
+    function triggerBulkPhotoInput() {
+      if (!isOwnerLoggedIn) {
+        showToast("Please authenticate with Owner ID 3694689 first.", "warning");
+        toggleOwnerModal();
+        return;
+      }
+      const picker = document.getElementById("bulkPhotoInput");
+      if (picker) {
+        picker.value = "";
+        picker.click();
+      }
+    }
+
+    // High performance sequential photo compressor for up to 10,000 images
+    function compressImageFile(file, maxDimension = 750, quality = 0.78) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const img = new Image();
+          img.onload = function() {
+            let w = img.width;
+            let h = img.height;
+            if (w > h) {
+              if (w > maxDimension) {
+                h = Math.round(h * (maxDimension / w));
+                w = maxDimension;
+              }
+            } else {
+              if (h > maxDimension) {
+                w = Math.round(w * (maxDimension / h));
+                h = maxDimension;
+              }
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext("2d", { alpha: false });
+            ctx.drawImage(img, 0, 0, w, h);
+
+            // Clean image memory and return compressed JPEG
+            const dataUrl = canvas.toDataURL("image/jpeg", quality);
+            canvas.width = 0;
+            canvas.height = 0;
+            resolve(dataUrl);
+          };
+          img.onerror = () => resolve(evt.target.result);
+          img.src = evt.target.result;
+        };
+        reader.onerror = () => resolve(null);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Queue-based sequential processor: prevents browser tab crash when selecting 1,000 - 10,000 files
+    async function handleBulkPhotoUpload(e) {
+      const files = Array.from(e.target.files || []);
+      if (files.length === 0) return;
+
+      const totalFiles = files.length;
+      const progressModal = document.getElementById("bulkProgressModal");
+      const progressBar = document.getElementById("bulkProgressBar");
+      const progressCount = document.getElementById("bulkProgressCount");
+      const progressPercent = document.getElementById("bulkProgressPercent");
+      const progressStatus = document.getElementById("bulkProgressStatus");
+
+      progressModal.classList.remove("hidden");
+      progressBar.style.width = "0%";
+      progressCount.innerText = `0 / ${totalFiles.toLocaleString('en-IN')} Loaded`;
+      progressPercent.innerText = "0%";
+      progressStatus.innerText = `Preparing high-capacity pipeline for ${totalFiles.toLocaleString('en-IN')} photos...`;
+
+      const newItems = [];
+      const timestamp = Date.now();
+      const defaultCategory = (currentCategory !== "All" && currentCategory !== "Offers" && currentCategory !== "Featured Products")
+        ? currentCategory 
+        : "Bedsheets";
+
+      const CHUNK_SIZE = 12; // Process in non-blocking micro-batches
+      let importedCount = 0;
+
+      for (let i = 0; i < totalFiles; i += CHUNK_SIZE) {
+        const chunk = files.slice(i, i + CHUNK_SIZE);
+        
+        await Promise.all(chunk.map(async (file, chunkIdx) => {
+          if (!file.type.startsWith("image/")) return;
+
+          const overallIdx = i + chunkIdx;
+          const compressedData = await compressImageFile(file, 720, 0.78);
+          if (!compressedData) return;
+
+          const baseName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+          const titleFormatted = baseName.charAt(0).toUpperCase() + baseName.slice(1);
+          const codeNum = String(products.length + newItems.length + 101).padStart(4, '0');
+
+          const productObj = {
+            id: `prod-vault-${timestamp}-${overallIdx}`,
+            code: `KHB-${codeNum}`,
+            title: `Kiyansh Heritage ${titleFormatted || 'Textile Creation'}`,
+            category: defaultCategory,
+            price: 1199,
+            originalPrice: 2299,
+            image: compressedData,
+            specs: "100% Pure Combed Cotton • Master Loom Heritage Weave",
+            inStock: true,
+            isFeatured: (overallIdx % 6 === 0),
+            isOffer: (overallIdx % 4 === 0)
+          };
+
+          newItems.push(productObj);
+          importedCount++;
+        }));
+
+        // Allow UI to breathe and update progress bar
+        const percent = Math.min(100, Math.round((importedCount / totalFiles) * 100));
+        progressBar.style.width = `${percent}%`;
+        progressPercent.innerText = `${percent}%`;
+        progressCount.innerText = `${importedCount.toLocaleString('en-IN')} / ${totalFiles.toLocaleString('en-IN')} Loaded`;
+        progressStatus.innerText = `Writing photos to storage vault (${importedCount} stored)...`;
+
+        // Small yield to main thread for responsive animation
+        await new Promise(r => setTimeout(r, 10));
+      }
+
+      if (newItems.length > 0) {
+        progressStatus.innerText = "Indexing database catalog...";
+        products = [...newItems, ...products];
+        await dbBatchPutProducts(newItems);
+        updateStorageBadges();
+        visibleItemCount = ITEMS_PER_PAGE;
+        renderProducts();
+        
+        setTimeout(() => {
+          progressModal.classList.add("hidden");
+          showToast(`Successfully stored and indexed ${importedCount.toLocaleString('en-IN')} photographs in your store!`, "success");
+        }, 500);
+      } else {
+        progressModal.classList.add("hidden");
+        showToast("No valid image files found to import.", "warning");
+      }
+    }
+
+    function exportCatalogJSON() {
+      try {
+        const jsonStr = JSON.stringify(products, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `kiyansh_heritage_catalog_${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast("Catalog backup downloaded successfully!", "success");
+      } catch (err) {
+        showToast("Could not export catalog JSON.", "error");
+      }
+    }
+
+    function renderCategoryNav() {
+      const container = document.getElementById("categoryNavContainer");
+      container.innerHTML = "";
+
+      ALL_CATEGORIES.forEach(cat => {
+        const btn = document.createElement("button");
+        const isActive = (cat === currentCategory);
+
+        let iconTag = "";
+        if (cat === "Offers") iconTag = '<i class="fa-solid fa-fire text-rose-500 mr-1.5"></i>';
+        else if (cat === "Featured Products") iconTag = '<i class="fa-solid fa-star text-amber-400 mr-1.5"></i>';
+
+        btn.className = `px-3.5 py-1.5 rounded-full text-xs font-semibold transition flex items-center whitespace-nowrap ${
+          isActive 
+            ? 'bg-black text-white shadow-sm' 
+            : 'bg-white text-stone-600 hover:bg-stone-200 border border-stone-200'
+        }`;
+        
+        btn.innerHTML = `${iconTag}${cat}`;
+        btn.onclick = () => filterByCategory(cat);
+        container.appendChild(btn);
+      });
+    }
+
+    function populateEditCategoriesDropdown() {
+      const select = document.getElementById("editCategory");
+      select.innerHTML = "";
+      const assignable = ALL_CATEGORIES.filter(c => !["All", "Offers", "Featured Products"].includes(c));
+      assignable.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        select.appendChild(opt);
+      });
+    }
+
+    function filterByCategory(cat) {
+      currentCategory = cat;
+      visibleItemCount = ITEMS_PER_PAGE;
+      renderCategoryNav();
+
+      const chipContainer = document.getElementById("filterChipsContainer");
+      const title = document.getElementById("currentCategoryTitle");
+      const desc = document.getElementById("categoryDescription");
+
+      if (cat === "All") {
+        chipContainer.classList.add("hidden");
+        title.innerText = "All Heritage Collections";
+        desc.innerText = "Browse our full range of Kiyansh Heritage luxury textiles and decor pieces.";
+      } else {
+        chipContainer.classList.remove("hidden");
+        document.getElementById("filterTagName").innerText = cat;
+        title.innerText = cat;
+        if (cat === "Offers") {
+          desc.innerText = "Special discounted rates on our best-selling Kiyansh Heritage textiles.";
+        } else if (cat === "Featured Products") {
+          desc.innerText = "Master weaver specials and top-rated customer favorites.";
+        } else {
+          desc.innerText = `Premium quality ${cat} crafted with authentic looms and durable comfortable weaves.`;
+        }
+      }
+
+      renderProducts();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val.trim().toLowerCase();
+      visibleItemCount = ITEMS_PER_PAGE;
+      const clearBtn = document.getElementById("clearSearchBtn");
+      if (searchQuery.length > 0) {
+        clearBtn?.classList.remove("hidden");
+      } else {
+        clearBtn?.classList.add("hidden");
+      }
+      renderProducts();
+    }
+
+    function clearSearch() {
+      searchQuery = "";
+      visibleItemCount = ITEMS_PER_PAGE;
+      document.getElementById("desktopSearchInput").value = "";
+      document.getElementById("mobileSearchInput").value = "";
+      document.getElementById("clearSearchBtn").classList.add("hidden");
+      renderProducts();
+    }
+
+    function handleSortChange(val) {
+      sortBy = val;
+      visibleItemCount = ITEMS_PER_PAGE;
+      renderProducts();
+    }
+
+    function resetFilters() {
+      searchQuery = "";
+      visibleItemCount = ITEMS_PER_PAGE;
+      document.getElementById("desktopSearchInput").value = "";
+      document.getElementById("mobileSearchInput").value = "";
+      filterByCategory("All");
+    }
+
+    function loadNextProductBatch() {
+      visibleItemCount += ITEMS_PER_PAGE;
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById("productsGrid");
+      const emptyView = document.getElementById("noProductsView");
+      const countBadge = document.getElementById("productCountBadge");
+      const loadMoreSection = document.getElementById("loadMoreSection");
+      const displayedCount = document.getElementById("displayedCount");
+      const totalMatchingCount = document.getElementById("totalMatchingCount");
+
+      let filtered = products.filter(p => {
+        if (currentCategory === "Offers") {
+          if (!p.isOffer) return false;
+        } else if (currentCategory === "Featured Products") {
+          if (!p.isFeatured) return false;
+        } else if (currentCategory !== "All") {
+          if (p.category !== currentCategory) return false;
+        }
+
+        if (searchQuery) {
+          const matchTitle = p.title.toLowerCase().includes(searchQuery);
+          const matchCat = p.category.toLowerCase().includes(searchQuery);
+          const matchSpecs = (p.specs || "").toLowerCase().includes(searchQuery);
+          const matchCode = (p.code || "").toLowerCase().includes(searchQuery);
+          if (!matchTitle && !matchCat && !matchSpecs && !matchCode) return false;
+        }
+
+        return true;
+      });
+
+      if (sortBy === "priceLow") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sortBy === "priceHigh") {
+        filtered.sort((a, b) => b.price - a.price);
+      } else if (sortBy === "discount") {
+        filtered.sort((a, b) => {
+          const discA = ((a.originalPrice - a.price) / a.originalPrice) || 0;
+          const discB = ((b.originalPrice - b.price) / b.originalPrice) || 0;
+          return discB - discA;
+        });
+      } else {
+        filtered.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
+      }
+
+      countBadge.innerText = `${filtered.length.toLocaleString('en-IN')} items`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        emptyView.classList.remove("hidden");
+        loadMoreSection.classList.add("hidden");
+        return;
+      }
+
+      emptyView.classList.add("hidden");
+      grid.innerHTML = "";
+
+      // High Performance Virtual Slice to keep 10,000 photos smooth without browser freeze
+      const visibleBatch = filtered.slice(0, visibleItemCount);
+
+      visibleBatch.forEach(p => {
+        const discountPct = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-2xl border border-stone-200 overflow-hidden flex flex-col shadow-sm hover:shadow-md transition group relative";
+
+        card.innerHTML = `
+          <div class="relative h-56 w-full bg-stone-100 overflow-hidden">
+            <img 
+              src="${p.image}" 
+              alt="${p.title}" 
+              loading="lazy"
+              onerror="this.src='https://placehold.co/600x400/1c1917/ffffff?text=${encodeURIComponent(p.category)}'"
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+            >
+            
+            <div class="absolute top-2.5 left-2.5 flex flex-col gap-1">
+              ${discountPct > 0 ? `<span class="bg-rose-700 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">${discountPct}% OFF</span>` : ''}
+              ${p.isFeatured ? `<span class="bg-black/85 backdrop-blur text-amber-400 text-[10px] font-semibold px-2 py-0.5 rounded shadow">★ Featured</span>` : ''}
+              ${p.isOffer ? `<span class="bg-emerald-700 text-white text-[10px] font-semibold px-2 py-0.5 rounded shadow">Special Deal</span>` : ''}
+            </div>
+
+            <!-- Product Code Badge Top Right -->
+            <div class="absolute top-2.5 right-2.5 flex flex-col items-end gap-1">
+              <span class="bg-black/90 text-rose-300 font-mono text-[10px] font-bold px-2 py-0.5 rounded-lg shadow backdrop-blur border border-stone-700">
+                #${p.code || 'KHB'}
+              </span>
+              ${isOwnerLoggedIn ? `
+                <button 
+                  onclick="openEditProductModal('${p.id}')" 
+                  class="bg-black/90 text-amber-400 hover:bg-stone-900 px-2 py-1 rounded-lg text-[10px] font-semibold shadow-lg backdrop-blur flex items-center gap-1 transition border border-stone-700"
+                  title="Edit Price & #Code"
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <span>Edit</span>
+                </button>
+              ` : ''}
+            </div>
+          </div>
+
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-[11px] text-stone-500 font-medium mb-1">
+                <span class="font-semibold text-rose-800">${p.category}</span>
+                <span class="${p.inStock ? 'text-emerald-600' : 'text-rose-600'} font-semibold">
+                  ${p.inStock ? 'In Stock' : 'Sold Out'}
+                </span>
+              </div>
+              <h3 class="font-bold text-stone-900 text-sm line-clamp-2 leading-snug mb-1 group-hover:text-rose-800 transition">
+                ${p.title}
+              </h3>
+              <p class="text-[11px] text-stone-500 line-clamp-1 mb-3">${p.specs || 'Kiyansh Heritage Fabric'}</p>
+            </div>
+
+            <div>
+              <div class="flex items-baseline gap-2 mb-3">
+                <span class="text-lg font-extrabold text-stone-900">₹${p.price.toLocaleString('en-IN')}</span>
+                ${p.originalPrice > p.price ? `<span class="text-xs text-stone-400 line-through">₹${p.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                <span class="text-[10px] font-mono text-stone-400 ml-auto font-semibold">#${p.code}</span>
+              </div>
+
+              <!-- Action Buttons: Add to Cart + 1-Click WhatsApp Order -->
+              <div class="grid grid-cols-2 gap-2">
+                <button 
+                  onclick="addToCart('${p.id}')" 
+                  ${!p.inStock ? 'disabled' : ''}
+                  class="py-2 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition ${
+                    p.inStock 
+                      ? 'bg-stone-900 hover:bg-black text-white shadow-sm' 
+                      : 'bg-stone-200 text-stone-400 cursor-not-allowed'
+                  }"
+                  title="Add to Cart"
+                >
+                  <i class="fa-solid fa-cart-plus text-[11px]"></i>
+                  <span>${p.inStock ? 'Add to Cart' : 'Sold Out'}</span>
+                </button>
+
+                <button 
+                  onclick="orderSingleProductDirectly('${p.id}')" 
+                  ${!p.inStock ? 'disabled' : ''}
+                  class="py-2 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition shadow-sm ${
+                    p.inStock 
+                      ? 'bg-emerald-700 hover:bg-emerald-800 text-white' 
+                      : 'bg-stone-200 text-stone-400 cursor-not-allowed'
+                  }"
+                  title="Direct WhatsApp Order"
+                >
+                  <i class="fa-brands fa-whatsapp text-sm"></i>
+                  <span>Order Now</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      // Update Pagination Indicators
+      if (filtered.length > visibleItemCount) {
+        loadMoreSection.classList.remove("hidden");
+        displayedCount.innerText = visibleBatch.length.toLocaleString('en-IN');
+        totalMatchingCount.innerText = filtered.length.toLocaleString('en-IN');
+      } else {
+        loadMoreSection.classList.add("hidden");
+      }
+    }
+
+    function toggleOwnerModal() {
+      const modal = document.getElementById("ownerModal");
+      const loginSection = document.getElementById("ownerLoginContent");
+      const loggedInSection = document.getElementById("ownerLoggedInContent");
+
+      if (isOwnerLoggedIn) {
+        loginSection.classList.add("hidden");
+        loggedInSection.classList.remove("hidden");
+      } else {
+        loginSection.classList.remove("hidden");
+        loggedInSection.classList.add("hidden");
+      }
+
+      modal.classList.toggle("hidden");
+    }
+
+    function togglePasswordVisibility(inputId) {
+      const input = document.getElementById(inputId);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    function handleOwnerAuth(e) {
+      e.preventDefault();
+      const input = document.getElementById("ownerInputId");
+      const val = input.value.trim();
+
+      if (val === OWNER_ID) {
+        isOwnerLoggedIn = true;
+        sessionStorage.setItem("khb_owner", "true");
+        input.value = "";
+        toggleOwnerModal();
+        updateOwnerUI();
+        renderProducts();
+        showToast("Welcome Owner! High-Capacity Photo Engine & Controls Unlocked.", "success");
+      } else {
+        showToast("Invalid Owner ID. Please enter registered ID 3694689.", "error");
+      }
+    }
+
+    function logoutOwner() {
+      isOwnerLoggedIn = false;
+      sessionStorage.removeItem("khb_owner");
+      toggleOwnerModal();
+      updateOwnerUI();
+      renderProducts();
+      showToast("Owner Mode deactivated.", "info");
+    }
+
+    function updateOwnerUI() {
+      const badge = document.getElementById("ownerStatusBadge");
+      const addBtn = document.getElementById("adminAddNewBtn");
+      const bulkBtn = document.getElementById("adminBulkUploadBtn");
+      const ownerBtnLabel = document.getElementById("ownerBtnLabel");
+
+      if (isOwnerLoggedIn) {
+        badge.classList.remove("hidden");
+        badge.classList.add("flex");
+        addBtn.classList.remove("hidden");
+        addBtn.classList.add("flex");
+        bulkBtn?.classList.remove("hidden");
+        bulkBtn?.classList.add("flex");
+        ownerBtnLabel.innerText = "Owner Dashboard";
+      } else {
+        badge.classList.add("hidden");
+        badge.classList.remove("flex");
+        addBtn.classList.add("hidden");
+        addBtn.classList.remove("flex");
+        bulkBtn?.classList.add("hidden");
+        bulkBtn?.classList.remove("flex");
+        ownerBtnLabel.innerText = "Owner Login";
+      }
+    }
+
+    function triggerDirectPhotoBrowser() {
+      const picker = document.getElementById("directPhotoPicker");
+      picker.value = "";
+      picker.click();
+    }
+
+    async function handleDirectPhotoSelection(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith("image/")) {
+        showToast("Please choose an image file from your device.", "error");
+        return;
+      }
+
+      showToast("Optimizing photograph...", "info");
+      const compressedData = await compressImageFile(file, 900, 0.85);
+      if (compressedData) {
+        displayPhotoInPreview(compressedData);
+        showToast("Photograph ready!", "success");
+      } else {
+        showToast("Failed to process photograph.", "error");
+      }
+    }
+
+    function displayPhotoInPreview(photoData) {
+      const hiddenInput = document.getElementById("editImageData");
+      const preview = document.getElementById("editImagePreview");
+      const emptyState = document.getElementById("photoEmptyState");
+      const removeBtn = document.getElementById("removePhotoBtn");
+
+      hiddenInput.value = photoData || "";
+
+      if (photoData) {
+        preview.src = photoData;
+        preview.classList.remove("hidden");
+        emptyState.classList.add("hidden");
+        removeBtn.classList.remove("hidden");
+      } else {
+        preview.src = "";
+        preview.classList.add("hidden");
+        emptyState.classList.remove("hidden");
+        removeBtn.classList.add("hidden");
+      }
+    }
+
+    function clearSelectedPhoto() {
+      displayPhotoInPreview("");
+      document.getElementById("directPhotoPicker").value = "";
+      showToast("Photo removed. Tap box to browse another photo.", "info");
+    }
+
+    function openEditProductModal(productId) {
+      if (!isOwnerLoggedIn) {
+        showToast("Please login with Owner ID 3694689 to edit prices.", "warning");
+        toggleOwnerModal();
+        return;
+      }
+
+      const prod = products.find(p => p.id === productId);
+      if (!prod) return;
+
+      document.getElementById("editModalTitle").innerText = "Edit Product Details & Price";
+      document.getElementById("editProductId").value = prod.id;
+      document.getElementById("editTitle").value = prod.title;
+      document.getElementById("editCode").value = prod.code || "KHB-101";
+      document.getElementById("editPrice").value = prod.price;
+      document.getElementById("editOriginalPrice").value = prod.originalPrice;
+      document.getElementById("editCategory").value = prod.category;
+      document.getElementById("editInStock").value = prod.inStock ? "true" : "false";
+      document.getElementById("editIsFeatured").checked = !!prod.isFeatured;
+      document.getElementById("editIsOffer").checked = !!prod.isOffer;
+      document.getElementById("editSpecs").value = prod.specs || "";
+      document.getElementById("deleteProductBtn").classList.remove("hidden");
+
+      displayPhotoInPreview(prod.image);
+
+      document.getElementById("editProductModal").classList.remove("hidden");
+    }
+
+    function openAddProductModal() {
+      if (!isOwnerLoggedIn) {
+        showToast("Owner authentication required.", "warning");
+        toggleOwnerModal();
+        return;
+      }
+
+      const nextCodeNum = products.length + 101;
+      document.getElementById("editModalTitle").innerText = "Add New Product to Store";
+      document.getElementById("editProductId").value = "NEW";
+      document.getElementById("editTitle").value = "";
+      document.getElementById("editCode").value = `KHB-${nextCodeNum}`;
+      document.getElementById("editPrice").value = "";
+      document.getElementById("editOriginalPrice").value = "";
+      document.getElementById("editCategory").value = "Bedsheets";
+      document.getElementById("editInStock").value = "true";
+      document.getElementById("editIsFeatured").checked = false;
+      document.getElementById("editIsOffer").checked = false;
+      document.getElementById("editSpecs").value = "";
+      document.getElementById("deleteProductBtn").classList.add("hidden");
+
+      displayPhotoInPreview("");
+
+      document.getElementById("editProductModal").classList.remove("hidden");
+    }
+
+    function closeEditProductModal() {
+      document.getElementById("editProductModal").classList.add("hidden");
+    }
+
+    async function handleSaveProductEdit(e) {
+      e.preventDefault();
+
+      const id = document.getElementById("editProductId").value;
+      const title = document.getElementById("editTitle").value.trim();
+      let code = document.getElementById("editCode").value.trim().replace(/^#/, '');
+      if (!code) code = `KHB-${Date.now().toString().slice(-4)}`;
+
+      const price = parseFloat(document.getElementById("editPrice").value);
+      const originalPrice = parseFloat(document.getElementById("editOriginalPrice").value);
+      const category = document.getElementById("editCategory").value;
+      const inStock = document.getElementById("editInStock").value === "true";
+      const isFeatured = document.getElementById("editIsFeatured").checked;
+      const isOffer = document.getElementById("editIsOffer").checked;
+      const specs = document.getElementById("editSpecs").value.trim();
+      let image = document.getElementById("editImageData").value.trim();
+
+      if (!image) {
+        image = `https://placehold.co/600x400/1c1917/ffffff?text=${encodeURIComponent(category)}`;
+      }
+
+      if (id === "NEW") {
+        const newProduct = {
+          id: "prod-" + Date.now(),
+          code,
+          title,
+          price,
+          originalPrice,
+          category,
+          inStock,
+          isFeatured,
+          isOffer,
+          image,
+          specs
+        };
+        products.unshift(newProduct);
+        await saveProductToDatabase(newProduct);
+        showToast(`Added "${title}" with code #${code}!`, "success");
+      } else {
+        const index = products.findIndex(p => p.id === id);
+        if (index !== -1) {
+          const updatedProduct = {
+            ...products[index],
+            code,
+            title,
+            price,
+            originalPrice,
+            category,
+            inStock,
+            isFeatured,
+            isOffer,
+            image,
+            specs
+          };
+          products[index] = updatedProduct;
+          await saveProductToDatabase(updatedProduct);
+          showToast(`Updated "${title}" price & code #${code}!`, "success");
+        }
+      }
+
+      renderProducts();
+      closeEditProductModal();
+    }
+
+    async function handleDeleteProduct() {
+      const id = document.getElementById("editProductId").value;
+      if (id === "NEW") return;
+
+      products = products.filter(p => p.id !== id);
+      cart = cart.filter(item => item.id !== id);
+      await removeProductFromDatabase(id);
+      saveCartToStorage();
+      renderProducts();
+      closeEditProductModal();
+      showToast("Product deleted from catalog.", "info");
+    }
+
+    async function resetDefaultData() {
+      await dbClearAllProducts();
+      products = [...INITIAL_PRODUCTS];
+      await dbBatchPutProducts(products);
+      updateStorageBadges();
+      visibleItemCount = ITEMS_PER_PAGE;
+      renderProducts();
+      showToast("Product catalog reset to defaults.", "success");
+    }
+
+    function constructOrderMessage(title, code) {
+      return `Hello Kiyansh Heritage! I would like to order: Kiyansh Heritage with ${title} with #${code}`;
+    }
+
+    function addToCart(productId) {
+      const prod = products.find(p => p.id === productId);
+      if (!prod) return;
+
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({
+          id: prod.id,
+          code: prod.code || 'KHB',
+          title: prod.title,
+          price: prod.price,
+          image: prod.image,
+          category: prod.category,
+          qty: 1
+        });
+      }
+
+      saveCartToStorage();
+
+      const orderMessage = constructOrderMessage(prod.title, prod.code);
+
+      // Open popup modal & display confirmation toast
+      openAddToCartModal(prod, orderMessage);
+      showToast(orderMessage, "success");
+    }
+
+    function openAddToCartModal(prod, message) {
+      currentPopupMessage = message;
+
+      document.getElementById("popupOrderMessageText").innerText = `"${message}"`;
+      document.getElementById("popupProductImg").src = prod.image;
+      document.getElementById("popupProductCode").innerText = `#${prod.code}`;
+      document.getElementById("popupProductCategory").innerText = prod.category;
+      document.getElementById("popupProductTitle").innerText = prod.title;
+      document.getElementById("popupProductPrice").innerText = `₹${prod.price.toLocaleString('en-IN')}`;
+
+      document.getElementById("addToCartModal").classList.remove("hidden");
+    }
+
+    function closeAddToCartModal() {
+      document.getElementById("addToCartModal").classList.add("hidden");
+    }
+
+    function copyPopupMessage() {
+      if (!currentPopupMessage) return;
+      const temp = document.createElement("textarea");
+      temp.value = currentPopupMessage;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand("copy");
+      document.body.removeChild(temp);
+      showToast("Order message copied to clipboard!", "success");
+    }
+
+    function proceedFromPopupToWhatsApp() {
+      if (!currentPopupMessage) return;
+      const fullText = `${currentPopupMessage}\n\nPlease confirm availability and dispatch to my address:\n[Enter Address Here]`;
+      closeAddToCartModal();
+      openWhatsApp(fullText);
+    }
+
+    function orderSingleProductDirectly(productId) {
+      const prod = products.find(p => p.id === productId);
+      if (!prod) return;
+
+      const orderMsg = constructOrderMessage(prod.title, prod.code);
+      const whatsappText = `${orderMsg}\n\n• Category: ${prod.category}\n• Price: ₹${prod.price.toLocaleString('en-IN')}\n• Specifications: ${prod.specs || 'Standard'}\n\nPlease confirm availability and dispatch details to my address:\n[Enter Delivery Address Here]`;
+
+      showToast(`Opening WhatsApp for #${prod.code}...`, "success");
+      openWhatsApp(whatsappText);
+    }
+
+    function updateCartQty(productId, delta) {
+      const item = cart.find(i => i.id === productId);
+      if (!item) return;
+
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(i => i.id !== productId);
+      }
+
+      saveCartToStorage();
+    }
+
+    function removeCartItem(productId) {
+      cart = cart.filter(i => i.id !== productId);
+      saveCartToStorage();
+      showToast("Item removed from bag", "info");
+    }
+
+    function toggleCartDrawer() {
+      const drawer = document.getElementById("cartDrawer");
+      drawer.classList.toggle("hidden");
+    }
+
+    function updateCartDisplay() {
+      const badge = document.getElementById("cartCountBadge");
+      const list = document.getElementById("cartItemList");
+      const subtotalEl = document.getElementById("cartSubtotal");
+      const totalEl = document.getElementById("cartTotal");
+
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      badge.innerText = totalItems;
+
+      let subtotal = 0;
+
+      if (cart.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-12 text-stone-400">
+            <i class="fa-solid fa-basket-shopping text-4xl mb-3 text-stone-300"></i>
+            <p class="text-sm font-semibold text-stone-600">Your bag is empty</p>
+            <p class="text-xs text-stone-400 mt-1">Select from our Kiyansh Heritage bedsheets & furnishings to begin.</p>
+          </div>
+        `;
+      } else {
+        list.innerHTML = "";
+        cart.forEach(item => {
+          const liveProd = products.find(p => p.id === item.id);
+          const currentPrice = liveProd ? liveProd.price : item.price;
+          const currentImg = liveProd ? liveProd.image : item.image;
+          const currentCode = liveProd ? (liveProd.code || item.code) : item.code;
+          const lineTotal = currentPrice * item.qty;
+          subtotal += lineTotal;
+
+          const row = document.createElement("div");
+          row.className = "flex gap-3 p-2.5 rounded-xl border border-stone-200 bg-white items-center";
+          row.innerHTML = `
+            <img src="${currentImg}" alt="${item.title}" class="w-16 h-16 object-cover rounded-lg bg-stone-100 flex-shrink-0">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span class="text-[9px] uppercase font-bold text-rose-800">${item.category}</span>
+                <span class="text-[9px] font-mono font-bold text-stone-500 bg-stone-100 px-1.5 rounded">#${currentCode}</span>
+              </div>
+              <h4 class="text-xs font-bold text-stone-800 truncate">${item.title}</h4>
+              <div class="text-xs font-semibold text-stone-900 mt-0.5">₹${currentPrice.toLocaleString('en-IN')}</div>
+              
+              <div class="flex items-center gap-2 mt-1.5">
+                <div class="flex items-center border border-stone-300 rounded-lg overflow-hidden text-xs">
+                  <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-stone-100 hover:bg-stone-200 text-stone-700">-</button>
+                  <span class="px-2.5 py-0.5 font-bold">${item.qty}</span>
+                  <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-stone-100 hover:bg-stone-200 text-stone-700">+</button>
+                </div>
+                <button onclick="removeCartItem('${item.id}')" class="text-red-500 hover:text-red-700 text-xs">
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+            <div class="text-xs font-bold text-stone-900">₹${lineTotal.toLocaleString('en-IN')}</div>
+          `;
+          list.appendChild(row);
+        });
+      }
+
+      subtotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+      totalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+    }
+
+    function handleCheckout() {
+      if (cart.length === 0) {
+        showToast("Your cart is empty. Please add items before checking out.", "warning");
+        return;
+      }
+      
+      let itemsListText = "";
+      if (cart.length === 1) {
+        itemsListText = constructOrderMessage(cart[0].title, cart[0].code);
+      } else {
+        itemsListText = "Hello Kiyansh Heritage! I would like to order:\n" + cart.map(item => `• Kiyansh Heritage with ${item.title} with #${item.code} (Qty: ${item.qty}) - ₹${item.price * item.qty}`).join('\n');
+      }
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      
+      const whatsappMsg = `${itemsListText}\n\nTotal Order Value: ₹${total.toLocaleString('en-IN')}\nDelivery Address:\n[Please enter your full address here]`;
+      
+      showToast("Order initiated! Opening WhatsApp...", "success");
+      openWhatsApp(whatsappMsg);
+
+      cart = [];
+      saveCartToStorage();
+      toggleCartDrawer();
+    }
+
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+
+      let borderClass = "border-stone-800 bg-black text-white";
+      let icon = "fa-circle-info";
+
+      if (type === "success") {
+        borderClass = "border-emerald-600 bg-emerald-950 text-emerald-100";
+        icon = "fa-circle-check text-emerald-400";
+      } else if (type === "warning") {
+        borderClass = "border-amber-600 bg-amber-950 text-amber-100";
+        icon = "fa-triangle-exclamation text-amber-400";
+      } else if (type === "error") {
+        borderClass = "border-rose-600 bg-rose-950 text-rose-100";
+        icon = "fa-circle-xmark text-rose-400";
+      }
+
+      toast.className = `p-3.5 rounded-xl border shadow-2xl text-xs flex items-center gap-2.5 transition-all duration-300 transform translate-y-2 pointer-events-auto ${borderClass}`;
+      toast.innerHTML = `
+        <i class="fa-solid ${icon} text-base flex-shrink-0"></i>
+        <div class="flex-1 font-medium leading-relaxed">${message}</div>
+      `;
+
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.remove("translate-y-2");
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.add("opacity-0", "translate-x-4");
+        setTimeout(() => toast.remove(), 300);
+      }, 4500);
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById("contactName").value.trim();
+      const phone = document.getElementById("contactPhone").value.trim();
+      const message = document.getElementById("contactMessage").value.trim();
+
+      const text = `New Website Inquiry for Kiyansh Heritage Bed Sheets:\n• Name: ${name}\n• Phone: ${phone}\n• Requirement: ${message}`;
+      
+      showToast("Thank you! Opening WhatsApp to send your inquiry...", "success");
+      openWhatsApp(text);
+
+      e.target.reset();
+    }
+
+    window.addEventListener("DOMContentLoaded", initApp);
+  </script>
+</body>
+</html>
